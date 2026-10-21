@@ -1,0 +1,100 @@
+{
+  "tool": "laptop-bench",
+  "version": "0.1",
+  "timestamp": "2026-10-22T02:46:06",
+  "model": "unsloth/Qwen3-4B-Instruct-2507-GGUF:Q4_K_M",
+  "base_url": "http://127.0.0.1:8080/v1",
+  "machine": {
+    "cpu": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "os": "Windows 11",
+    "ram_gb": 16,
+    "python": "3.13.15"
+  },
+  "settings": {
+    "max_tokens": 2048,
+    "temperature": 0
+  },
+  "summary": {
+    "passed": 6,
+    "total": 8,
+    "pass_rate": 0.75,
+    "tok_per_s": 6.7,
+    "ttft_s": 1.01,
+    "total_seconds": 252.1,
+    "total_tokens": 1621
+  },
+  "tasks": [
+    {
+      "id": "01_merge_intervals",
+      "passed": true,
+      "seconds": 22.2,
+      "ttft_s": 1.04,
+      "tokens": 135,
+      "reasoning_chars": 0,
+      "detail": ""
+    },
+    {
+      "id": "02_parse_log",
+      "passed": false,
+      "seconds": 46.4,
+      "ttft_s": 0.75,
+      "tokens": 306,
+      "reasoning_chars": 0,
+      "detail": "ine 5, in <module>\n    assert parse_log(line) == want, parse_log(line)\n           ~~~~~~~~~^^^^^^\n  File \"C:\\Users\\User\\AppData\\Local\\Temp\\tmpz5vpc6_d\\solution.py\", line 10, in parse_log\n    raise ValueError(\"Line does not match the expected shape\")\nValueError: Line does not match the expected shape"
+    },
+    {
+      "id": "03_fix_binary_search",
+      "passed": true,
+      "seconds": 13.2,
+      "ttft_s": 1.01,
+      "tokens": 82,
+      "reasoning_chars": 0,
+      "detail": ""
+    },
+    {
+      "id": "04_chunk",
+      "passed": true,
+      "seconds": 14.4,
+      "ttft_s": 2.55,
+      "tokens": 79,
+      "reasoning_chars": 0,
+      "detail": ""
+    },
+    {
+      "id": "05_version_compare",
+      "passed": true,
+      "seconds": 28.5,
+      "ttft_s": 0.59,
+      "tokens": 188,
+      "reasoning_chars": 0,
+      "detail": ""
+    },
+    {
+      "id": "06_csv_to_json",
+      "passed": false,
+      "seconds": 90.8,
+      "ttft_s": 4.1,
+      "tokens": 580,
+      "reasoning_chars": 0,
+      "detail": "ame\": \"alice\", \"score\": 3}, {\"name\": \"bob\", \"score\": None}]\n           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\User\\AppData\\Local\\Temp\\tmp80m7ufoj\\solution.py\", line 78, in csv_to_json\n    row_dict[header] = row[i]\n                       ~~~^^^\nIndexError: list index out of range"
+    },
+    {
+      "id": "07_dedupe",
+      "passed": true,
+      "seconds": 7.1,
+      "ttft_s": 0.17,
+      "tokens": 48,
+      "reasoning_chars": 0,
+      "detail": ""
+    },
+    {
+      "id": "08_top_k_words",
+      "passed": true,
+      "seconds": 29.5,
+      "ttft_s": 0.42,
+      "tokens": 203,
+      "reasoning_chars": 0,
+      "detail": ""
+    }
+  ]
+}
