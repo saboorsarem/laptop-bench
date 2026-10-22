@@ -1,0 +1,39 @@
+{
+  "tool": "laptop-bench",
+  "version": "0.1",
+  "timestamp": "2026-10-22T03:29:52",
+  "model": "unsloth/flint-GGUF:UD-IQ1_M",
+  "base_url": "http://127.0.0.1:8080/v1",
+  "command": "bench.py --base-url http://127.0.0.1:8080/v1 --model unsloth/flint-GGUF:UD-IQ1_M --max-tokens 4096 --only 01_merge_intervals",
+  "machine": {
+    "cpu": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "gpu": "Intel(R) UHD Graphics",
+    "os": "Windows 11",
+    "ram_gb": 16,
+    "python": "3.13.15"
+  },
+  "settings": {
+    "max_tokens": 4096,
+    "temperature": 0
+  },
+  "summary": {
+    "passed": 1,
+    "total": 1,
+    "pass_rate": 1.0,
+    "tok_per_s": 6.8,
+    "ttft_s": 18.6,
+    "total_seconds": 160.2,
+    "total_tokens": 965
+  },
+  "tasks": [
+    {
+      "id": "01_merge_intervals",
+      "passed": true,
+      "seconds": 160.2,
+      "ttft_s": 18.6,
+      "tokens": 965,
+      "reasoning_chars": 3388,
+      "detail": ""
+    }
+  ]
+}

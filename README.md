@@ -15,6 +15,10 @@ pass@1: 6/8 (75%)   6.7 tok/s   ttft 1.01s   252s total   i5-12450H, 16 GB RAM, 
 No dependencies, one file, any OpenAI-compatible server: llama.cpp, LM Studio, Ollama,
 vLLM, SGLang, `rec`.
 
+Before you benchmark, check whether the model fits at all:
+[modelfit](https://github.com/saboorsarem/modelfit) sizes the weights and the KV cache,
+picks a quant, and writes the OpenCode config.
+
 ## Results
 
 Measured on the machine in the machine column, one sample per task, temperature 0.
