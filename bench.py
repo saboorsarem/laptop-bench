@@ -55,9 +55,38 @@ def total_ram_gb():
     return None
 
 
+def gpu_name():
+    try:
+        out = subprocess.run(
+            ["nvidia-smi", "--query-gpu=name,memory.total", "--format=csv,noheader"],
+            capture_output=True, text=True, timeout=5,
+        )
+        if out.returncode == 0 and out.stdout.strip():
+            return "; ".join(line.strip() for line in out.stdout.strip().splitlines())
+    except Exception:
+        pass
+    try:
+        if sys.platform == "win32":
+            out = subprocess.run(
+                ["powershell", "-NoProfile", "-Command", "(Get-CimInstance Win32_VideoController).Name -join '; '"],
+                capture_output=True, text=True, timeout=20,
+            )
+            if out.returncode == 0 and out.stdout.strip():
+                return out.stdout.strip()
+        elif sys.platform == "darwin":
+            out = subprocess.run(["system_profiler", "SPDisplaysDataType"], capture_output=True, text=True, timeout=20)
+            for line in out.stdout.splitlines():
+                if "Chipset Model" in line:
+                    return line.split(":", 1)[1].strip()
+    except Exception:
+        pass
+    return None
+
+
 def machine():
     return {
         "cpu": os.environ.get("PROCESSOR_IDENTIFIER") or platform.processor() or platform.machine(),
+        "gpu": gpu_name(),
         "os": f"{platform.system()} {platform.release()}",
         "ram_gb": total_ram_gb(),
         "python": platform.python_version(),
@@ -145,10 +174,12 @@ def run_check(workdir, code, timeout):
 
 def load_task(name):
     path = os.path.join(TASKS_DIR, name)
-    prompt = open(os.path.join(path, "prompt.md"), encoding="utf-8").read().strip()
+    with open(os.path.join(path, "prompt.md"), encoding="utf-8") as handle:
+        prompt = handle.read().strip()
     starter = os.path.join(path, "starter.py")
     if os.path.exists(starter):
-        prompt += "\n\nCurrent file `solution.py`:\n\n```python\n" + open(starter, encoding="utf-8").read().strip() + "\n```"
+        with open(starter, encoding="utf-8") as handle:
+            prompt += "\n\nCurrent file `solution.py`:\n\n```python\n" + handle.read().strip() + "\n```"
     return prompt, os.path.join(path, "check.py")
 
 
@@ -228,6 +259,7 @@ def main():
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "model": args.model,
         "base_url": args.base_url,
+        "command": " ".join(sys.argv),
         "machine": machine(),
         "settings": {"max_tokens": args.max_tokens, "temperature": 0},
         "summary": summary,

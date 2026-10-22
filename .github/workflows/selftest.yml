@@ -1,0 +1,27 @@
+name: selftest
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tasks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Every task is solvable
+        run: python selftest.py
+      - name: CLI works
+        run: python bench.py --help
+      - name: Result files are valid JSON
+        run: |
+          python - <<'PY'
+          import glob, json
+          for path in glob.glob("results/*.json"):
+              json.load(open(path, encoding="utf-8"))
+              print("ok", path)
+          PY
